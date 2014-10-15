@@ -32,7 +32,6 @@ int HashMap::getValue(int key) {
 				temp = temp->getNext();
 		}
 
-
 	}
 
 	// If no entry or key never found
@@ -51,22 +50,28 @@ void HashMap::insertEntry(int key, int value){
 
 		HashEntry * temp = table[hash];
 
-		while(temp->getNext()){
+		while(temp){
+
+			// If key already exists, update value
+			if(temp->getKey() == key){
+				temp->setValue(value);
+
+				delete new_entry;
+				return;
+			}
+
+			// If end of list is reached, append new entry
+			if(temp->getNext() == NULL)
+				temp->setNext(new_entry);
+
+			// Go to next entry in list
 			temp = temp->getNext();
-		}
 
-		// If key matches, just update entry
-		// Otherwise attach new entry
-		if(temp->getKey() == key){
-			temp->setValue(value);
-			delete new_entry;
 		}
-		else{
-			temp->setNext(new_entry);
-		}
-
+		
 	}
 	else{
+		// Slot is empty, add new entry
 		table[hash] = new_entry;
 	}
 

@@ -9,7 +9,8 @@ int main(){
 	HashMap * hm = new HashMap();
 
 	hm->insertEntry(120,5);
+	hm->insertEntry(120,6);
 	hm->display();
 
-	cout << hm->getValue(121) << endl;
+	cout << hm->getValue(120) << endl;
 }
