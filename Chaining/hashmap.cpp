@@ -45,7 +45,8 @@ void HashMap::insertEntry(int key, int value){
 
 	HashEntry * new_entry = new HashEntry(key, value);
 
-	// If entry is taken, iterate to last and append
+	// If entry is taken, figure out if key exists
+	// If not, append to end of chain
 	if(table[hash]){
 
 		HashEntry * temp = table[hash];
@@ -61,8 +62,10 @@ void HashMap::insertEntry(int key, int value){
 			}
 
 			// If end of list is reached, append new entry
-			if(temp->getNext() == NULL)
+			if(temp->getNext() == NULL){
 				temp->setNext(new_entry);
+				return;
+			}
 
 			// Go to next entry in list
 			temp = temp->getNext();
